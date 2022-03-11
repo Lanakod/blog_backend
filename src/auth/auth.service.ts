@@ -5,10 +5,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UsersService } from 'src/users/users.service';
+import { CreateUserDto } from 'src/app/user/dto/create-user.dto';
+import { UsersService } from 'src/app/user/user.service';
 import * as bcrypt from 'bcryptjs';
-import { User } from 'src/users/users.model';
+import { User } from 'src/app/user/user.model';
 
 @Injectable()
 export class AuthService {
@@ -23,10 +23,12 @@ export class AuthService {
   }
 
   async register(userDto: CreateUserDto) {
-    const candidate = await this.userService.getUserByEmail(userDto.email);
+    const candidate = await this.userService.getUserByUsername(
+      userDto.username,
+    );
     if (candidate) {
       throw new HttpException(
-        'Пользователь с таким email уже существует',
+        'Пользователь с таким логином уже существует',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -39,14 +41,14 @@ export class AuthService {
   }
 
   private async generateToken(user: User) {
-    const payload = { email: user.email, id: user.id, roles: user.roles };
+    const payload = { username: user.username, id: user.id, roles: user.roles };
     return {
       token: this.jwtService.sign(payload),
     };
   }
 
   private async validateUser(userDto: CreateUserDto) {
-    const user = await this.userService.getUserByEmail(userDto.email);
+    const user = await this.userService.getUserByUsername(userDto.username);
     const passwordEquals = await bcrypt.compare(
       userDto.password,
       user.password,
@@ -54,6 +56,6 @@ export class AuthService {
     if (user && passwordEquals) {
       return user;
     }
-    throw new UnauthorizedException({ message: 'Неверный email или пароль' });
+    throw new UnauthorizedException({ message: 'Неверный логин или пароль' });
   }
 }
