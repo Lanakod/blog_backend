@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
-import { UtilsModule } from './utils/utils.module';
-import { ApplicationModule } from './app/app.module';
-import { DatabaseModule } from './common/database/database.module';
+import { AuthModule } from '@auth/auth.module';
+import { UtilsModule } from '@utils/utils.module';
+import { ApplicationModule } from '@app/app.module';
+import { DatabaseModule } from '@database/database.module';
 
 @Module({
   controllers: [],

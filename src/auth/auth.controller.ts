@@ -5,8 +5,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { ValidationPipe } from 'src/common/pipes/validation.pipe';
-import { CreateUserDto } from 'src/app/user/dto/create-user.dto';
+import { ValidationPipe } from '@pipes/validation.pipe';
+import { CreateUserDto } from '@app/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 
 class Token {

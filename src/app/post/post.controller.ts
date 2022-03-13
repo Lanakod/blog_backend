@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+import { ValidationPipe } from '@pipes/validation.pipe';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './post.service';
 

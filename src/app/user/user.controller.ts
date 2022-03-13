@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 // import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Roles } from 'src/auth/role-auth.decorator';
-import { RolesGuard } from 'src/auth/role.guard';
-import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+import { Roles } from '@decorators/role-auth.decorator';
+import { RolesGuard } from '@guards/role.guard';
+import { ValidationPipe } from '@pipes/validation.pipe';
 import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';

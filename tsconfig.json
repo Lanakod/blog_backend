@@ -10,6 +10,16 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@auth/*": ["src/auth/*"],
+      "@config/*": ["src/common/config/*"],
+      "@database/*": ["src/common/database/*"],
+      "@decorators/*": ["src/common/decorators/*"],
+      "@guards/*": ["src/common/guards/*"],
+      "@pipes/*": ["src/common/pipes/*"],
+      "@utils/*": ["src/utils/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

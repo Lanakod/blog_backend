@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+import { ValidationPipe } from '@pipes/validation.pipe';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { Role } from './role.model';
 import { RolesService } from './role.service';
