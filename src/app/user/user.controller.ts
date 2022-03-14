@@ -8,7 +8,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-// import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+// import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { Roles } from '@decorators/role-auth.decorator';
 import { RolesGuard } from '@guards/role.guard';
 import { ValidationPipe } from '@pipes/validation.pipe';
@@ -25,6 +25,8 @@ export class UsersController {
   @ApiOperation({ summary: 'Создание пользователя' })
   @ApiResponse({ status: 200, type: User })
   @UsePipes(ValidationPipe)
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   create(@Body() userDto: CreateUserDto) {
     return this.usersService.createUser(userDto);
@@ -44,6 +46,8 @@ export class UsersController {
   @ApiResponse({ status: 200, type: User })
   // @UseGuards(JwtAuthGuard)
   @Get('/:username')
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   get(@Param('username') username: string) {
     return this.usersService.getUserByUsername(username);
   }
@@ -52,8 +56,8 @@ export class UsersController {
   @ApiResponse({ status: 200, type: AddRoleDto })
   @UsePipes(ValidationPipe)
   // @UseGuards(JwtAuthGuard)
-  @Roles('ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('ADMIN')
+  // @UseGuards(RolesGuard)
   @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);

@@ -10,6 +10,7 @@ import {
 import { Post } from '@app/post/post.model';
 import { Role } from '@app/role/role.model';
 import { UserRoles } from '@app/role/user-roles.model';
+import SwaggerConstants from '@constants/swagger.constant';
 
 interface UserCreationAttrs {
   password: string;
@@ -18,7 +19,7 @@ interface UserCreationAttrs {
 
 @Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttrs> {
-  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
+  @ApiProperty(SwaggerConstants.USER_ID)
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -27,10 +28,7 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({
-    example: 'Alex',
-    description: 'Имя пользователя',
-  })
+  @ApiProperty(SwaggerConstants.USERNAME)
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -38,10 +36,7 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   username: string;
 
-  @ApiProperty({
-    example: 'StrongPassw0rd!',
-    description: 'Пароль пользователя',
-  })
+  @ApiProperty(SwaggerConstants.PASSWORD)
   @Column({
     type: DataType.STRING,
     allowNull: false,

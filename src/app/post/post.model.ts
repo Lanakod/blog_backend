@@ -8,6 +8,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { User } from '@app/user/user.model';
+import SwaggerConstants from '@constants/swagger.constant';
 
 interface PostCreationAttrs {
   title: string;
@@ -18,7 +19,7 @@ interface PostCreationAttrs {
 
 @Table({ tableName: 'posts' })
 export class Post extends Model<Post, PostCreationAttrs> {
-  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
+  @ApiProperty(SwaggerConstants.POST_ID)
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -27,6 +28,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
   })
   id: number;
 
+  @ApiProperty(SwaggerConstants.POST_TITLE)
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -34,12 +36,14 @@ export class Post extends Model<Post, PostCreationAttrs> {
   })
   title: string;
 
+  @ApiProperty(SwaggerConstants.POST_CONTENT)
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   content: string;
 
+  @ApiProperty(SwaggerConstants.POST_IMAGE)
   @Column({ type: DataType.STRING })
   image: string;
 

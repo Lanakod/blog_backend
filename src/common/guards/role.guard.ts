@@ -28,6 +28,10 @@ export class RolesGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     try {
       const authHeader = req.headers.authorization;
+      console.log(
+        '🚀 ~ file: role.guard.ts ~ line 31 ~ RolesGuard ~ authHeader',
+        authHeader,
+      );
       const [bearer, token] = authHeader.split(' ');
 
       if (bearer !== 'Bearer' || !token) {
@@ -37,6 +41,10 @@ export class RolesGuard implements CanActivate {
       }
 
       const user = this.jwtService.verify(token);
+      console.log(
+        '🚀 ~ file: role.guard.ts ~ line 44 ~ RolesGuard ~ user',
+        user.roles,
+      );
       req.user = user;
       return user.roles.some((role) => requiredRoles.includes(role.value));
     } catch (error) {

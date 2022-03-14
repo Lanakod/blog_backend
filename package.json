@@ -1,8 +1,8 @@
 {
-  "name": "backend",
-  "version": "0.2.0",
-  "description": "",
-  "author": "",
+  "name": "blog-backend",
+  "version": "0.2.1",
+  "description": "Backend for the blog",
+  "author": "Lanakod",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UsePipes } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common';
 import {
   ApiOperation,
   ApiProperty,
@@ -8,13 +8,10 @@ import {
 import { ValidationPipe } from '@pipes/validation.pipe';
 import { CreateUserDto } from '@app/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
+import SwaggerConstants from '@constants/swagger.constant';
 
 class Token {
-  @ApiProperty({
-    example:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXgiLCJpZCI6Mywicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMDMtMTFUMDg6MzU6MTkuODg0WiIsInVwZGF0ZWRBdCI6IjIwMjItMDMtMTFUMDg6MzU6MTkuODg0WiJ9XSwiaWF0IjoxNjQ2OTg4Mjc3LCJleHAiOjE2NDcwNzQ2Nzd9.5Y6sAeNg05uuuF9Ztodq1TFlFpuvuXe5JqsRRBslRmk',
-    description: 'Уникальный идентификатор',
-  })
+  @ApiProperty(SwaggerConstants.TOKEN)
   readonly token: string;
 }
 
@@ -27,6 +24,7 @@ export class AuthController {
   @ApiResponse({ status: 200, type: Token })
   @UsePipes(ValidationPipe)
   @Post('/login')
+  @HttpCode(200)
   login(@Body() userDto: CreateUserDto) {
     return this.authService.login(userDto);
   }
@@ -34,7 +32,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Регистрация' })
   @ApiResponse({ status: 200, type: Token })
   @UsePipes(ValidationPipe)
-  @Post('register')
+  @Post('/register')
   register(@Body() userDto: CreateUserDto) {
     return this.authService.register(userDto);
   }

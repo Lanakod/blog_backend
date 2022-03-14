@@ -20,7 +20,6 @@ export class RolesController {
 
   @ApiOperation({ summary: 'Получение роли по названию' })
   @ApiResponse({ status: 200, type: Role })
-  @UsePipes(ValidationPipe)
   @Get('/:value')
   getByValue(@Param('value') value: string) {
     return this.roleService.getRoleByValue(value);

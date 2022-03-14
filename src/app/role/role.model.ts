@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { User } from '@app/user/user.model';
 import { UserRoles } from './user-roles.model';
+import SwaggerConstants from '@constants/swagger.constant';
 
 interface RoleCreationAttrs {
   value: string;
@@ -16,7 +17,7 @@ interface RoleCreationAttrs {
 
 @Table({ tableName: 'roles' })
 export class Role extends Model<Role, RoleCreationAttrs> {
-  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
+  @ApiProperty(SwaggerConstants.ROLE_ID)
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -25,10 +26,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({
-    example: 'ADMIN',
-    description: 'Значение роли',
-  })
+  @ApiProperty(SwaggerConstants.ROLE_VALUE)
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -36,10 +34,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
   })
   value: string;
 
-  @ApiProperty({
-    example: 'Администратор',
-    description: 'Описание роли',
-  })
+  @ApiProperty(SwaggerConstants.ROLE_DESCRIPTION)
   @Column({
     type: DataType.STRING,
     allowNull: false,

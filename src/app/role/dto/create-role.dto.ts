@@ -1,18 +1,13 @@
+import SwaggerConstants from '@constants/swagger.constant';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class CreateRoleDto {
-  @ApiProperty({
-    example: 'ADMIN',
-    description: 'Ключ роли',
-  })
+  @ApiProperty(SwaggerConstants.ROLE_VALUE)
   @IsString({ message: 'Должно быть строкой' })
   readonly value: string;
 
-  @ApiProperty({
-    example: 'Администратор',
-    description: 'Название роли',
-  })
+  @ApiProperty(SwaggerConstants.ROLE_DESCRIPTION)
   @IsString({ message: 'Должно быть строкой' })
   readonly description: string;
 }
