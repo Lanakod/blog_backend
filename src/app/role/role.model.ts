@@ -9,6 +9,7 @@ import {
 import { User } from '@app/user/user.model';
 import { UserRoles } from './user-roles.model';
 import SwaggerConstants from '@constants/swagger.constant';
+import { Exclude, Expose } from 'class-transformer';
 
 interface RoleCreationAttrs {
   value: string;
@@ -16,6 +17,7 @@ interface RoleCreationAttrs {
 }
 
 @Table({ tableName: 'roles' })
+@Exclude()
 export class Role extends Model<Role, RoleCreationAttrs> {
   @ApiProperty(SwaggerConstants.ROLE_ID)
   @Column({
@@ -32,6 +34,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     unique: true,
     allowNull: false,
   })
+  @Expose()
   value: string;
 
   @ApiProperty(SwaggerConstants.ROLE_DESCRIPTION)
@@ -39,6 +42,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
+  @Expose()
   description: string;
 
   @BelongsToMany(() => User, () => UserRoles)

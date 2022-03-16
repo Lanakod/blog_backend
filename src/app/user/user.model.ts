@@ -11,6 +11,7 @@ import { Post } from '@app/post/post.model';
 import { Role } from '@app/role/role.model';
 import { UserRoles } from '@app/role/user-roles.model';
 import SwaggerConstants from '@constants/swagger.constant';
+import { Exclude, Expose } from 'class-transformer';
 
 interface UserCreationAttrs {
   password: string;
@@ -18,6 +19,7 @@ interface UserCreationAttrs {
 }
 
 @Table({ tableName: 'users' })
+@Exclude()
 export class User extends Model<User, UserCreationAttrs> {
   @ApiProperty(SwaggerConstants.USER_ID)
   @Column({
@@ -34,6 +36,7 @@ export class User extends Model<User, UserCreationAttrs> {
     unique: true,
     allowNull: false,
   })
+  @Expose()
   username: string;
 
   @ApiProperty(SwaggerConstants.PASSWORD)
@@ -43,9 +46,13 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   password: string;
 
+  @ApiProperty(SwaggerConstants.ROLE)
   @BelongsToMany(() => Role, () => UserRoles)
+  @Expose()
   roles: Role[];
 
+  @ApiProperty({ example: 'TEST', description: 'DESC' })
   @HasMany(() => Post)
+  @Expose()
   posts: Post[];
 }

@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { User } from '@app/user/user.model';
 import SwaggerConstants from '@constants/swagger.constant';
+import { Exclude, Expose } from 'class-transformer';
 
 interface PostCreationAttrs {
   title: string;
@@ -18,6 +19,7 @@ interface PostCreationAttrs {
 }
 
 @Table({ tableName: 'posts' })
+@Exclude()
 export class Post extends Model<Post, PostCreationAttrs> {
   @ApiProperty(SwaggerConstants.POST_ID)
   @Column({
@@ -34,6 +36,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
     unique: true,
     allowNull: false,
   })
+  @Expose()
   title: string;
 
   @ApiProperty(SwaggerConstants.POST_CONTENT)
@@ -41,14 +44,17 @@ export class Post extends Model<Post, PostCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
+  @Expose()
   content: string;
 
   @ApiProperty(SwaggerConstants.POST_IMAGE)
   @Column({ type: DataType.STRING })
+  @Expose()
   image: string;
 
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER })
+  @Expose()
   userId: number;
 
   @BelongsTo(() => User)

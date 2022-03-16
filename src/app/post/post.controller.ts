@@ -10,7 +10,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationPipe } from '@pipes/validation.pipe';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './post.service';
@@ -43,6 +43,7 @@ export class PostsController {
 
   @ApiOperation({ summary: 'Получить пост по ID' })
   @ApiResponse({ status: 200, type: PostModel })
+  @ApiParam({ name: 'id', description: 'ID поста', example: 1 })
   @HttpCode(200)
   @Get('/:id')
   getById(@Param('id') id: number) {

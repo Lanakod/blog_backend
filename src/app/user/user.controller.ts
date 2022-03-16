@@ -5,9 +5,10 @@ import {
   Param,
   Post,
   UseGuards,
+  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 // import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { Roles } from '@decorators/role-auth.decorator';
 import { RolesGuard } from '@guards/role.guard';
@@ -16,6 +17,7 @@ import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './user.service';
+import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -27,6 +29,7 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   @Roles('ADMIN')
   @UseGuards(RolesGuard)
+  @UseInterceptors(new TransformInterceptor(CreateUserDto))
   @Post()
   create(@Body() userDto: CreateUserDto) {
     return this.usersService.createUser(userDto);
@@ -46,8 +49,13 @@ export class UsersController {
   @ApiResponse({ status: 200, type: User })
   // @UseGuards(JwtAuthGuard)
   @Get('/:username')
-  @Roles('ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('ADMIN')
+  // @UseGuards(RolesGuard)
+  @ApiParam({
+    name: 'username',
+    description: 'Имя пользователя',
+    example: 'Alex',
+  })
   get(@Param('username') username: string) {
     return this.usersService.getUserByUsername(username);
   }
@@ -59,6 +67,7 @@ export class UsersController {
   // @Roles('ADMIN')
   // @UseGuards(RolesGuard)
   @Post('/role')
+  @UseInterceptors(new TransformInterceptor(AddRoleDto))
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
   }

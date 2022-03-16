@@ -44,6 +44,13 @@ const SwaggerConstants = {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXgiLCJpZCI6Mywicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMDMtMTFUMDg6MzU6MTkuODg0WiIsInVwZGF0ZWRBdCI6IjIwMjItMDMtMTFUMDg6MzU6MTkuODg0WiJ9XSwiaWF0IjoxNjQ2OTg4Mjc3LCJleHAiOjE2NDcwNzQ2Nzd9.5Y6sAeNg05uuuF9Ztodq1TFlFpuvuXe5JqsRRBslRmk',
     description: 'Токен пользователя',
   },
+  ROLE: {
+    example: {
+      value: 'USER',
+      description: 'Пользователь',
+    },
+    description: 'Роль пользователя',
+  },
 };
 
 export default SwaggerConstants;
