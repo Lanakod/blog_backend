@@ -1,5 +1,5 @@
 #static
-/src/static/images/*
+/src/static/images/*.jpg
 
 #environment
 .env.dev
