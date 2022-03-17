@@ -21,7 +21,7 @@
       "@utils/*": ["src/utils/*"],
       "@constants/*": ["src/common/constants/*"],
       "@interceptors/*": ["src/common/interceptors/*"],
-      "@static/*": ["src/static/*"]
+      "@static/*": ["static/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

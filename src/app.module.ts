@@ -4,7 +4,6 @@ import { AuthModule } from '@auth/auth.module';
 import { UtilsModule } from '@utils/utils.module';
 import { ApplicationModule } from '@app/app.module';
 import { DatabaseModule } from '@database/database.module';
-import { StaticModule } from '@static/static.module';
 
 @Module({
   controllers: [],
@@ -18,7 +17,6 @@ import { StaticModule } from '@static/static.module';
     AuthModule,
     UtilsModule,
     DatabaseModule,
-    StaticModule,
   ],
 })
 export class AppModule {}
