@@ -9,7 +9,7 @@ export class FilesService {
   async createFile(file: Express.Multer.File): Promise<string> {
     try {
       const fileName = uuid.v4() + '.jpg';
-      const filePath = path.resolve(__dirname, '..', 'static');
+      const filePath = path.resolve(process.cwd(), 'src', 'static', 'images');
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }

@@ -46,7 +46,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   password: string;
 
-  @ApiProperty(SwaggerConstants.ROLE)
   @BelongsToMany(() => Role, () => UserRoles)
   @Expose()
   roles: Role[];

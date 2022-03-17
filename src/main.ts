@@ -14,7 +14,7 @@ const bootstrap = async () => {
   const config = new DocumentBuilder()
     .setTitle('Blog Backend')
     .setDescription('Документация по REST API')
-    .setVersion('0.2.2')
+    .setVersion('0.2.3')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);

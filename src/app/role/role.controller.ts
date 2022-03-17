@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationPipe } from '@pipes/validation.pipe';
-import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
+import { TransformInterceptor } from '@interceptors/transform.interceptor';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { Role } from './role.model';
 import { RolesService } from './role.service';

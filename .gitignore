@@ -1,3 +1,6 @@
+#static
+/src/static/images/*
+
 #environment
 .env.dev
 .env.prod

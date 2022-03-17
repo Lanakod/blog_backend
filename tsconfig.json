@@ -19,7 +19,9 @@
       "@guards/*": ["src/common/guards/*"],
       "@pipes/*": ["src/common/pipes/*"],
       "@utils/*": ["src/utils/*"],
-      "@constants/*": ["src/common/constants/*"]
+      "@constants/*": ["src/common/constants/*"],
+      "@interceptors/*": ["src/common/interceptors/*"],
+      "@static/*": ["src/static/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

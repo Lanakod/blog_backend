@@ -17,7 +17,7 @@ import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './user.service';
-import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
+import { TransformInterceptor } from '@interceptors/transform.interceptor';
 
 @ApiTags('Пользователи')
 @Controller('users')

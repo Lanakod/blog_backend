@@ -15,6 +15,7 @@ import { ValidationPipe } from '@pipes/validation.pipe';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './post.service';
 import { Post as PostModel } from './post.model';
+// import { TransformInterceptor } from '@interceptors/transform.interceptor';
 
 @ApiTags('Посты')
 @Controller('posts')
@@ -25,7 +26,10 @@ export class PostsController {
   @ApiResponse({ status: 200, type: PostModel })
   @UsePipes(ValidationPipe)
   @Post()
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(
+    // new TransformInterceptor(CreatePostDto),
+    FileInterceptor('image'),
+  )
   createPost(
     @Body() dto: CreatePostDto,
     @UploadedFile() image: Express.Multer.File,
