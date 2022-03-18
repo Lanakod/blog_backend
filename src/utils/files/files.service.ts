@@ -10,10 +10,18 @@ import { v4 as uuidV4 } from 'uuid';
 
 @Injectable()
 export class FilesService {
-  async createFile(file: Express.Multer.File): Promise<string> {
+  async createFile(
+    file: Express.Multer.File,
+    folderName: string,
+  ): Promise<string> {
     try {
       const fileName = uuidV4() + '.jpg';
-      const filePath = pathResolve(process.cwd(), 'src', 'static', 'images');
+      const filePath = pathResolve(
+        process.cwd(),
+        'static',
+        'images',
+        folderName,
+      );
       if (!fsExistsSync(filePath)) {
         fsMkdirSync(filePath, { recursive: true });
       }

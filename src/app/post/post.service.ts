@@ -12,7 +12,7 @@ export class PostsService {
   ) {}
 
   create = async (dto: CreatePostDto, image: Express.Multer.File) => {
-    const fileName = await this.filesService.createFile(image);
+    const fileName = await this.filesService.createFile(image, 'posts');
     const post = await this.postRepository.create({ ...dto, image: fileName });
     return post;
   };
