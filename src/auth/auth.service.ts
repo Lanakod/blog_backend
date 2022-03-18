@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcryptjs';
+import { hash as bcryptHash, compare as bcryptCompare } from 'bcryptjs';
 import { CreateUserDto } from '@app/user/dto/create-user.dto';
 import { UsersService } from '@app/user/user.service';
 import { User } from '@app/user/user.model';
@@ -32,7 +32,7 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const hashPassword = await bcrypt.hash(userDto.password, 5);
+    const hashPassword = await bcryptHash(userDto.password, 5);
     const user = await this.userService.createUser({
       ...userDto,
       password: hashPassword,
@@ -52,10 +52,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException({ message: 'Неверный логин или пароль' });
     }
-    const passwordEquals = await bcrypt.compare(
-      userDto.password,
-      user.password,
-    );
+    const passwordEquals = await bcryptCompare(userDto.password, user.password);
     if (user && passwordEquals) {
       return user;
     }

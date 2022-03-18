@@ -1,19 +1,23 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-import * as path from 'path';
-import * as fs from 'fs';
-import * as uuid from 'uuid';
+import { join as pathJoin, resolve as pathResolve } from 'path';
+import {
+  existsSync as fsExistsSync,
+  mkdirSync as fsMkdirSync,
+  writeFileSync as fsWriteFileSync,
+} from 'fs';
+import { v4 as uuidV4 } from 'uuid';
 
 @Injectable()
 export class FilesService {
   async createFile(file: Express.Multer.File): Promise<string> {
     try {
-      const fileName = uuid.v4() + '.jpg';
-      const filePath = path.resolve(process.cwd(), 'src', 'static', 'images');
-      if (!fs.existsSync(filePath)) {
-        fs.mkdirSync(filePath, { recursive: true });
+      const fileName = uuidV4() + '.jpg';
+      const filePath = pathResolve(process.cwd(), 'src', 'static', 'images');
+      if (!fsExistsSync(filePath)) {
+        fsMkdirSync(filePath, { recursive: true });
       }
-      fs.writeFileSync(path.join(filePath, fileName), file.buffer);
+      fsWriteFileSync(pathJoin(filePath, fileName), file.buffer);
       return fileName;
     } catch (error) {
       throw new HttpException(

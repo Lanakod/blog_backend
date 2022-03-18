@@ -1,6 +1,6 @@
 {
   "name": "blog-backend",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Backend for the blog",
   "author": "Lanakod",
   "private": true,

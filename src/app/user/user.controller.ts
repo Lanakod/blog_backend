@@ -5,7 +5,7 @@ import {
   Param,
   Post,
   UseGuards,
-  UseInterceptors,
+  // UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -17,7 +17,7 @@ import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './user.service';
-import { TransformInterceptor } from '@interceptors/transform.interceptor';
+// import { TransformInterceptor } from '@interceptors/transform.interceptor';
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -29,7 +29,7 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   @Roles('ADMIN')
   @UseGuards(RolesGuard)
-  @UseInterceptors(new TransformInterceptor(CreateUserDto))
+  // @UseInterceptors(new TransformInterceptor(CreateUserDto))
   @Post()
   create(@Body() userDto: CreateUserDto) {
     return this.usersService.createUser(userDto);
@@ -67,7 +67,7 @@ export class UsersController {
   // @Roles('ADMIN')
   // @UseGuards(RolesGuard)
   @Post('/role')
-  @UseInterceptors(new TransformInterceptor(AddRoleDto))
+  // @UseInterceptors(new TransformInterceptor(AddRoleDto))
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
   }
