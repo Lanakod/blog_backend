@@ -17,12 +17,16 @@ import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './user.service';
+import { TwoFactorService } from '@auth/services/two-factor.service';
 // import { TransformInterceptor } from '@interceptors/transform.interceptor';
 
 @ApiTags('Пользователи')
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private twoFactorService: TwoFactorService,
+  ) {}
 
   @ApiOperation({ summary: 'Создание пользователя' })
   @ApiResponse({ status: 200, type: User })
@@ -70,5 +74,13 @@ export class UsersController {
   // @UseInterceptors(new TransformInterceptor(AddRoleDto))
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
+  }
+
+  @Post('/2fa-generate/:username')
+  async twoFactorGenerate(@Param('username') username: string) {
+    const user = await this.usersService.getUserByUsername(username);
+    const secret = this.twoFactorService.generateSecret(username);
+    await this.usersService.saveSecret(secret.ascii, user);
+    return this.twoFactorService.generateQrCode(secret.otpauth_url);
   }
 }

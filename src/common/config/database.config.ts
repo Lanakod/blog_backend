@@ -16,7 +16,7 @@ export class PostgresConfig {
       database: configService.get('PG_DATABASE'),
       models: [resolve(process.cwd() + '/src/app/**/*.model')],
       autoLoadModels: true,
-      logging: false,
+      logging: true,
     };
   }
 }

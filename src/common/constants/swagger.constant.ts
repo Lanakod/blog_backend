@@ -32,7 +32,7 @@ const SwaggerConstants = {
     description: 'Текст внутри поста',
   },
   POST_IMAGE: {
-    example: 'Изображение поста',
+    example: '3b2acac9-fb29-4342-8232-ac5922cc867b.jpg',
     description: 'Изображение поста',
   },
   POST_ID: {

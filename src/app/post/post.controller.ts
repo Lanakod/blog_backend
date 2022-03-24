@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
+  HttpStatus,
   Param,
   Post,
   UploadedFile,
@@ -15,6 +17,7 @@ import { ValidationPipe } from '@pipes/validation.pipe';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './post.service';
 import { Post as PostModel } from './post.model';
+import { DeletePostDto } from '@app/post/dto/delete-post.dto';
 
 @ApiTags('Посты')
 @Controller('posts')
@@ -30,8 +33,6 @@ export class PostsController {
     @Body() dto: CreatePostDto,
     @UploadedFile() image: Express.Multer.File,
   ) {
-    console.log('[CONTROLLER]', dto);
-
     return this.postService.create(dto, image);
   }
 
@@ -50,5 +51,13 @@ export class PostsController {
   @Get('/:id')
   getById(@Param('id') id: number) {
     return this.postService.getById(id);
+  }
+
+  @ApiOperation({ summary: 'Удалить пост по его заголовку' })
+  @ApiResponse({ status: 200, type: PostModel })
+  @UsePipes(ValidationPipe)
+  @Delete()
+  delete(@Body() dto: DeletePostDto) {
+    return this.postService.delete(dto);
   }
 }

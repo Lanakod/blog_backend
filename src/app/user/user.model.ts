@@ -46,6 +46,12 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   password: string;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  twoFactor: string;
+
   @BelongsToMany(() => Role, () => UserRoles)
   @Expose()
   roles: Role[];

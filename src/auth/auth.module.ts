@@ -4,14 +4,15 @@ import { UsersModule } from '@app/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtConfigAsync } from '@config/jwt.config';
+import { TwoFactorService } from '@auth/services/two-factor.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, TwoFactorService],
   imports: [
     forwardRef(() => UsersModule),
     JwtModule.registerAsync(JwtConfigAsync),
   ],
-  exports: [AuthService, JwtModule],
+  exports: [AuthService, JwtModule, TwoFactorService],
 })
 export class AuthModule {}

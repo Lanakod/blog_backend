@@ -9,12 +9,14 @@ import { hash as bcryptHash, compare as bcryptCompare } from 'bcryptjs';
 import { CreateUserDto } from '@app/user/dto/create-user.dto';
 import { UsersService } from '@app/user/user.service';
 import { User } from '@app/user/user.model';
+import { TwoFactorService } from '@auth/services/two-factor.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
+    private twoFactorService: TwoFactorService,
   ) {}
 
   async login(userDto: CreateUserDto) {

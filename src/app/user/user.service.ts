@@ -15,20 +15,28 @@ export class UsersService {
   createUser = async (dto: CreateUserDto) => {
     const user = await this.userRepository.create(dto);
     const role = await this.roleService.getRoleByValue('USER');
+    if (!role) {
+      throw new HttpException(
+        'Стандартная роль не была найдена',
+        HttpStatus.NOT_FOUND,
+      );
+    }
     await user.$set('roles', [role.id]);
     user.roles = [role];
     return user;
   };
   getAllUsers = async () => {
-    const users = await this.userRepository.findAll({ include: { all: true } });
-    return users;
+    return await this.userRepository.findAll({ include: { all: true } });
   };
   getUserByUsername = async (username: string) => {
     const user = await this.userRepository.findOne({
       where: { username },
       include: { all: true },
     });
-    return user;
+    if (user) {
+      return user;
+    }
+    // throw new HttpException('Пользователь не найден', HttpStatus.NOT_FOUND);
   };
   addRole = async (dto: AddRoleDto) => {
     const user = await this.userRepository.findByPk(dto.userId);
@@ -41,5 +49,9 @@ export class UsersService {
       'Пользователь или роль не найдены',
       HttpStatus.NOT_FOUND,
     );
+  };
+  saveSecret = async (secret: string, user: User) => {
+    user.twoFactor = secret;
+    await user.save();
   };
 }
